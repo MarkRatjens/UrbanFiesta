@@ -11,11 +11,16 @@ class UrbanFiesta < Sinatra::Base
 
   set :root, File.dirname(__FILE__)
 
-  get '/credit_registrations/new' do
+  get '/credit_registrations/situation' do
+    situations
+    erb :"/credit_registrations/situation"
+  end
+
+  get '/credit_registrations/new/:situation' do
     erb :"/credit_registrations/new"
   end
 
-  post '/credit_registrations' do
+  post '/credit_registrations/:situation' do
     resource.situation = params[:situation]
     resource.email = params[:email]
     resource.phone = params[:phone]
@@ -46,6 +51,15 @@ class UrbanFiesta < Sinatra::Base
 
   post '/credit_registration/:id/email' do
     'email credit registration results'
+  end
+
+  def situations
+    @situations ||= {
+      studentus: 'a student from the U.S.',
+      studentabroad: 'a student from abroad',
+      professional: 'a working professional',
+      building: 'building my credit'
+    }
   end
 
   def resource(id = nil)

@@ -1,8 +1,9 @@
 <h1>present credit registration form</h1>
 
-<form method="POST" action="/credit_registrations">
-  <p>Your Situation: <input type="text" name="situation"></p>
-  <p>Email: <input type="text" name="email"></p>
-  <p>Phone: <input type="text" name="phone"></p>
+<form method="POST" action="/credit_registrations/<%= params[:situation] %>">
+  <p>Email</p>
+  <p><input type="text" name="email"></p>
+  <p>Cell Phone</p>
+  <p><input type="text" name="phone"></p>
   <input type="submit">
 </form>

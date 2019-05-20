@@ -1,0 +1,11 @@
+<h1>Which Best Describes You?</h1>
+
+<ul>
+  <% @situations.each do |k, v| %>
+    <li>
+      <a href="/credit_registrations/new/<%= k %>">
+        <%= v %>
+      </a>
+    </li>
+  <% end %>
+</ul>
