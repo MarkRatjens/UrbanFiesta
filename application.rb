@@ -62,12 +62,13 @@ class UrbanFiesta < Sinatra::Base
   end
 
   def situations
-    @situations ||= {
-      studentus: 'a student from the U.S.',
-      studentabroad: 'a student from abroad',
-      professional: 'a working professional',
-      building: 'building my credit'
-    }
+    @situations ||= [
+      :professional_foreign,
+      :resident_us,
+      :student_foreign,
+      :student_us,
+      :build_score
+    ]
   end
 
   def resource(id = nil)

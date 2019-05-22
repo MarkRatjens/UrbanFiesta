@@ -1,0 +1,9 @@
+en:
+  page_title:
+    situation: Select the option that best describes your situation
+  situation:
+    professional_foreign: Foreign Business Professional
+    resident_us: Employed or Self-employed US Resident
+    student_foreign: Foreign Student
+    student_us: US Based Student
+    build_score: Building Your Credit Score

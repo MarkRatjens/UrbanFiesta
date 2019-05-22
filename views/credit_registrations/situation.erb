@@ -1,11 +1,18 @@
-<h1>Which Best Describes You?</h1>
+<h2><%= I18n.t('page_title.situation') %></h2>
 
-<ul>
-  <% @situations.each do |k, v| %>
-    <li>
-      <a href="/credit_registrations/new/<%= k %>">
-        <%= v %>
-      </a>
-    </li>
-  <% end %>
-</ul>
+<div class="container">
+  <div class="row">
+    <% @situations.each do |s| %>
+      <div class="col-sm">
+        <a href="/credit_registrations/new/<%= s %>">
+          <div class="card border-0">
+            <img class="card-img-top" src="/icons/<%= s.to_s %>.svg">
+            <div class="card-body">
+              <p class="card-text text-center"><%= I18n.t("situation.#{s}") %></p>
+            </div>
+          </div>
+        </a>
+      </div>
+    <% end %>
+  </div>
+</div>
