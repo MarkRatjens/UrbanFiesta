@@ -1,6 +1,19 @@
-<h1>present credit registration form</h1>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <h2 class="text-center"><%= I18n.t('page_title.accept_code') %></h2>
+    </div>
+  </div>
 
-<form method="POST" action="/credit_registration/<%= @r.id %>/verification_check/<%= @service_sid %>">
-  <p>Enter Code: <input type="text" name="code"></p>
-  <input type="submit">
-</form>
+  <div class="row justify-content-center">
+    <div class="col-sm-3">
+      <form method="POST" action="/credit_registration/<%= @r.id %>/verification_check/<%= @service_sid %>">
+        <div class="form-group">
+          <input type="text" name="code" class="form-control form-control-sm" placeholder="Code">
+        </div>
+
+        <button type="submit" class="btn btn-sm btn-primary">Check Email</button>
+      </form>
+    </div>
+  </div>
+</div>
