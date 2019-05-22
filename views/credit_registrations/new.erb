@@ -1,9 +1,27 @@
-<h1>present credit registration form</h1>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <h2 class="text-center"><%= I18n.t('page_title.join_form') %></h2>
+    </div>
+  </div>
 
-<form method="POST" action="/credit_registrations/<%= params[:situation] %>">
-  <p>Email</p>
-  <p><input type="text" name="email"></p>
-  <p>Cell Phone</p>
-  <p><input type="text" name="phone"></p>
-  <input type="submit">
-</form>
+  <div class="row justify-content-center">
+    <div class="col-sm-3">
+      <form method="POST" action="/credit_registrations/<%= params[:situation] %>">
+        <div class="form-group">
+          <input type="email" name="email" class="form-control form-control-sm" aria-describedby="emailHelp" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <input type="phone" name="phone" class="form-control form-control-sm" placeholder="Cell Phone Number">
+        </div>
+        <button type="submit" class="btn btn-sm btn-primary">Verify</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <p><%= I18n.t('join_form.condition') %></p>
+    </div>
+  </div>
+</div>

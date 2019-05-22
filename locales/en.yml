@@ -1,9 +1,12 @@
 en:
   page_title:
-    situation: Select the option that best describes your situation
+    situation: Select the option that best describes your situation.
+    join_form: To Join The Waitlist Please Verify Your Email And Phone Number
   situation:
     professional_foreign: Foreign Business Professional
     resident_us: Employed or Self-employed US Resident
     student_foreign: Foreign Student
     student_us: US Based Student
     build_score: Building Your Credit Score
+  join_form:
+    condition: By clicking verify you consent to receiving communication via text and SMS. We will not reach out to you through phone calls and your information will not be shared with other parties for marketing purposes. You will be notified via email or SMS once pre-approval begins for early access.
