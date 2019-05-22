@@ -2,7 +2,8 @@ en:
   page_title:
     situation: Select the option that best describes your situation.
     join_form: To Join The Waitlist Please Verify Your Email And Phone Number
-    accept_code: Enter the Code Sent To Your Phone 
+    accept_code: Enter the Code Sent To Your Phone
+    success: Success - You've Been Added To The Waitlist
   situation:
     professional_foreign: Foreign Business Professional
     resident_us: Employed or Self-employed US Resident
