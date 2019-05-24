@@ -5,6 +5,7 @@ require 'twilio-ruby'
 require 'pony'
 require 'i18n'
 require 'i18n/backend/fallbacks'
+require './credit_registration/models/credit_registration'
 
 class UrbanFiesta < Sinatra::Base
   configure :development do
@@ -117,7 +118,4 @@ class UrbanFiesta < Sinatra::Base
   def client
     @client ||= Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
   end
-end
-
-class CreditRegistration < ActiveRecord::Base
 end
