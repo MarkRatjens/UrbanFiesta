@@ -18,3 +18,6 @@ en:
     condition: By clicking verify you consent to receiving communication via text and SMS. We will not reach out to you through phone calls and your information will not be shared with other parties for marketing purposes. You will be notified via email or SMS once pre-approval begins for early access.
   success_page:
     get_app: Get Opal faster by referring your friends to sign up using your access code. The friends you refer get ahead in line.
+  invalid_page:
+    button: Try Again
+    attempts: Maximum of 2 verififcation attempts

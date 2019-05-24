@@ -6,3 +6,37 @@
     </div>
   </div>
 </div>
+
+<div class="row justify-content-center">
+  <div class="col-md-4 col-sm-10 my-auto">
+    <div class="row">
+      <div class="col-md-10 align-self-center text-center">
+        Phone number not verified
+      </div>
+      <div class="col-md-2 align-self-center text-center">
+        <i class="far fa-thumbs-down fa-3x text-warning"></i>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-10 align-self-center text-center">
+        Email not verified
+      </div>
+      <div class="col-md-2 align-self-center text-center">
+        <i class="far fa-thumbs-down fa-3x text-warning"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center">
+  <a href="/credit_registrations/new/<%= @r.situation %>" class="btn btn-primary" role="button" aria-pressed="true">
+    <%= I18n.t('invalid_page.button') %>
+  </a>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <p class="text-center"><%= I18n.t('invalid_page.attempts') %></p>
+  </div>
+</div>
