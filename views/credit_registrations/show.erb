@@ -1,7 +1,5 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-10">
-      <h2 class="text-center"><%= I18n.t('page_title.success') %></h2>
-    </div>
-  </div>
-</div>
+<% if @r.is_checked? %>
+  <%= erb :"credit_registrations/show_success" %>
+<% else %>
+<%= erb :"credit_registrations/show_invalid" %>
+<% end %>
