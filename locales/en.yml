@@ -20,6 +20,7 @@ en:
     button: Check Email
   success_page:
     get_app: Get Opal faster by referring your friends to sign up using your access code. The friends you refer get ahead in line.
+    button: Refer
   invalid_page:
     button: Try Again
     attempts: Maximum of 2 verififcation attempts
