@@ -2,6 +2,19 @@
   <div class="row justify-content-center">
     <div class="col-md-10">
       <h2 class="text-center"><%= I18n.t('page_title.success') %></h2>
+      <h3 class="text-center">
+        <%= @r.id %> / <%= CreditRegistration.count %>
+      </h3>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-2 offset-md-2">
+      <img class="img-fluid" src="/card_activation_screen.png">
     </div>
   </div>
 </div>
