@@ -19,8 +19,10 @@ en:
   accept_code_form:
     button: Check Email
   success_page:
-    get_app: Get Opal faster by referring your friends to sign up using your access code. The friends you refer get ahead in line.
-    button: Refer
+    get_app:
+      first: Get Opal faster by referring your friends to sign up using your access code.
+      next: The friends you refer get ahead in line.
+    button: Copy
   invalid_page:
     button: Try Again
     attempts: Maximum of 2 verififcation attempts
