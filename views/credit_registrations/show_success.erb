@@ -44,10 +44,15 @@
   </div>
 
   <div class="row justify-content-center">
-    <a href="#" class="btn btn-outline-secondary" role="button" aria-pressed="true">
-      <%= I18n.t('success_page.button') %>
-      <i class="fas fa-user-friends"></i>
-    </a>
+    <div class="col-md-1 align-self-center text-success">
+      <%= @r.referrer_code %>
+    </div>
+    <div class="col-md-1">
+      <a href="/credit_registration/<%= @r.id %>/copy_code" class="btn btn-outline-secondary" role="button" aria-pressed="true">
+        <%= I18n.t('success_page.button') %>
+        <i class="far fa-copy"></i>
+      </a>
+    </div>
   </div>
 
   <div class="row justify-content-center">

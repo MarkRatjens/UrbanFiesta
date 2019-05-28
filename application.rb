@@ -5,6 +5,7 @@ require 'twilio-ruby'
 require 'pony'
 require 'i18n'
 require 'i18n/backend/fallbacks'
+require 'clipboard'
 require './credit_registration/models/credit_registration'
 
 class UrbanFiesta < Sinatra::Base
@@ -25,7 +26,16 @@ class UrbanFiesta < Sinatra::Base
     erb :"/credit_registrations/situation"
   end
 
+  get '/credit_registrations/:situation/:code' do
+    situations
+    erb :"/credit_registrations/situation"
+  end
+
   get '/credit_registrations/new/:situation' do
+    erb :"/credit_registrations/new"
+  end
+
+  get '/credit_registrations/new/:situation/:code' do
     erb :"/credit_registrations/new"
   end
 
@@ -33,6 +43,8 @@ class UrbanFiesta < Sinatra::Base
     resource.situation = params[:situation]
     resource.email = params[:email]
     resource.phone = params[:phone]
+    resource.referrer_code = resource.referral_code
+    resource.referee_code = params[:referrer_code]
     resource.save
     redirect "/credit_registration/#{resource.id}/verification/#{verification.service_sid}"
   end
@@ -60,6 +72,12 @@ class UrbanFiesta < Sinatra::Base
 
   post '/credit_registration/:id/email' do
     'email credit registration results'
+  end
+
+  get '/credit_registration/:id/copy_code' do
+    resource(params[:id])
+    Clipboard.copy("#{request.env["HTTP_HOST"]}/credit_registrations/situation/#{resource.referrer_code}")
+    redirect "/credit_registration/#{resource.id}"
   end
 
   def situations

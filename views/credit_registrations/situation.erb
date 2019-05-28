@@ -2,9 +2,14 @@
 
 <div class="container">
   <div class="row">
-    <% @situations.each do |s| %>
+    <%
+      @situations.each do |s|
+        if params[:code]
+          p = "#{s}/#{params[:code]}"
+        end
+    %>
       <div class="col-sm">
-        <a href="/credit_registrations/new/<%= s %>">
+        <a href="/credit_registrations/new/<%= p %>">
           <div class="card border-0">
             <img class="card-img-top" src="/icons/<%= s.to_s %>.svg">
             <div class="card-body">
