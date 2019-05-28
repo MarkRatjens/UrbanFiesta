@@ -65,6 +65,12 @@ class UrbanFiesta < Sinatra::Base
     erb :"/credit_registrations/show"
   end
 
+  get '/credit_registration/:id/email' do
+    resource(params[:id])
+    email
+    erb :"/credit_registrations/show"
+  end
+
   get '/credit_registration/:id' do
     resource(params[:id])
     erb :"/credit_registrations/show"
@@ -95,22 +101,36 @@ class UrbanFiesta < Sinatra::Base
   end
 
   def email
-    Pony.options = {
-      :subject => "Thanks for registering with Nyasa",
-      :html_body => "<h1>You're on the waitlist!</h1>",
-      :body => "You're on the waitlist",
-      :via => :smtp,
-      :via_options => {
-        :address              => ENV['SMTP_ADDRESS'],
-        :port                 => '587',
-        :enable_starttls_auto => true,
-        :user_name            => ENV['SMTP_FROM_ADDRESS'],
-        :password             => ENV['SMTP_PASSWORD'],
-        :authentication       => :plain, # :plain, :login, :cram_md5, no auth by default
-        :domain               => ENV['EMAIL_DOMAIN']
+    puts email_options.merge(smtp_options).to_s
+
+    Pony.mail(email_options.merge(smtp_options))
+  end
+
+  def email_options
+    context = binding
+
+    @email_options ||=
+      {
+        to: resource.email,
+        from: ENV['SMTP_FROM_ADDRESS'] || 'noreply@nyasa.io',
+        subject: 'Thanks for registering with Nyasa',
+        html_body: (erb :"credit_registrations/show_success")
+      }
+  end
+
+  def smtp_options
+    @smtp_options ||= {
+      via: :smtp,
+      via_options:{
+        address: ENV['SMTP_ADDRESS'],
+        port: '587',
+        enable_starttls_auto: true,
+        user_name: ENV['SMTP_USER_NAME'] || 'roreply@nyasa.io',
+        password: ENV['SMTP_PASSWORD'],
+        authentication: :plain, # :plain, :login, :cram_md5, no auth by default
+        domain: ENV['EMAIL_DOMAIN'] || 'nyasa.io'
       }
     }
-    # Pony.mail(:to => resource.email)
   end
 
   def verification
