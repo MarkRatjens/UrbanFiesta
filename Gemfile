@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-
+require "bundler/setup"
 gem "sinatra"
 gem "rake"
 gem "sinatra-activerecord"
