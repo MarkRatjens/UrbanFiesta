@@ -13,6 +13,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (9.0.0)
+    backports (3.15.0)
     clipboard (1.3.3)
     concurrent-ruby (1.1.5)
     faraday (0.15.4)
@@ -25,6 +26,7 @@ GEM
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
+    multi_json (1.13.1)
     multipart-post (2.1.1)
     mustermann (1.0.3)
     nokogiri (1.10.3)
@@ -44,6 +46,13 @@ GEM
     sinatra-activerecord (2.0.13)
       activerecord (>= 3.2)
       sinatra (>= 1.0)
+    sinatra-contrib (2.0.5)
+      backports (>= 2.8.2)
+      multi_json
+      mustermann (~> 1.0)
+      rack-protection (= 2.0.5)
+      sinatra (= 2.0.5)
+      tilt (>= 1.3, < 3)
     thread_safe (0.3.6)
     tilt (2.0.9)
     twilio-ruby (5.23.0)
@@ -64,6 +73,7 @@ DEPENDENCIES
   rake
   sinatra
   sinatra-activerecord
+  sinatra-contrib
   twilio-ruby
 
 BUNDLED WITH
