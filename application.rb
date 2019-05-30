@@ -105,13 +105,11 @@ class UrbanFiesta < Sinatra::Base
   end
 
   def email_options
-    context = binding
-
     @email_options ||=
       {
         to: resource.email,
         from: ENV['FROM_ADDRESS'] || 'noreply@nyasa.io',
-        subject: 'Thanks for registering with Nyasa',
+        subject: 'Thanks for joining the Opal waitlist',
         html_body: (erb :"credit_registrations/show_success")
       }
   end
