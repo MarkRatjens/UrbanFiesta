@@ -26,7 +26,7 @@ class UrbanFiesta < Sinatra::Base
     erb :"/credit_registrations/situation"
   end
 
-  get '/credit_registrations/:situation/:code' do
+  get '/credit_registrations/situation/:code' do
     situations
     erb :"/credit_registrations/situation"
   end

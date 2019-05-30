@@ -8,9 +8,7 @@
   <div class="row">
     <%
       @situations.each do |s|
-        if params[:code]
-          p = "#{s}/#{params[:code]}"
-        end
+        p = params[:code] ? "#{s}/#{params[:code]}" : s
     %>
       <div class="col-sm">
         <a href="/credit_registrations/new/<%= p %>">
