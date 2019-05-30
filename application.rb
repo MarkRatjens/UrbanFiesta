@@ -101,9 +101,7 @@ class UrbanFiesta < Sinatra::Base
   end
 
   def email
-    puts email_options.merge(smtp_options).to_s
-
-    Pony.mail(email_options.merge(smtp_options))
+    Pony.mail(email_options))
   end
 
   def email_options
@@ -112,25 +110,10 @@ class UrbanFiesta < Sinatra::Base
     @email_options ||=
       {
         to: resource.email,
-        from: ENV['SMTP_FROM_ADDRESS'] || 'noreply@nyasa.io',
+        from: ENV['FROM_ADDRESS'] || 'noreply@nyasa.io',
         subject: 'Thanks for registering with Nyasa',
         html_body: (erb :"credit_registrations/show_success")
       }
-  end
-
-  def smtp_options
-    @smtp_options ||= {
-      via: :smtp,
-      via_options:{
-        address: ENV['SMTP_ADDRESS'],
-        port: '587',
-        enable_starttls_auto: true,
-        user_name: ENV['SMTP_USER_NAME'] || 'roreply@nyasa.io',
-        password: ENV['SMTP_PASSWORD'],
-        authentication: :plain, # :plain, :login, :cram_md5, no auth by default
-        domain: ENV['EMAIL_DOMAIN'] || 'nyasa.io'
-      }
-    }
   end
 
   def verification
