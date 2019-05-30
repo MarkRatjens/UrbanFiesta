@@ -101,7 +101,7 @@ class UrbanFiesta < Sinatra::Base
   end
 
   def email
-    Pony.mail(email_options)
+    Pony.mail(email_options))
   end
 
   def email_options
