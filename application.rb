@@ -37,21 +37,31 @@ class UrbanFiesta < Sinatra::Base
   end
 
   get '/credit_registrations/new/:situation' do
+    resource
     erb :"/credit_registrations/new"
   end
 
   get '/credit_registrations/new/:situation/:code' do
+    resource
     erb :"/credit_registrations/new"
   end
 
   post '/credit_registrations/:situation' do
     resource.situation = params[:situation]
     resource.email = params[:email]
-    resource.phone = params[:phone]
-    resource.referrer_code = resource.referral_code
-    resource.referee_code = params[:referrer_code]
-    resource.save
-    redirect "/credit_registration/#{resource.id}/verification/#{verification.service_sid}"
+    resource.phone = params[:phone].gsub('-', '').gsub(' ', '')
+    resource.country_code = params[:country_code]
+
+    begin
+      v = verification
+      resource.referrer_code = resource.referral_code
+      resource.referee_code = params[:referrer_code]
+      resource.save
+      redirect "/credit_registration/#{resource.id}/verification/#{v.service_sid}"
+    rescue Twilio::REST::RestError => e
+      @phone_invalid = true
+      erb :"/credit_registrations/new"
+    end
   end
 
   get '/credit_registration/:id/verification/:service_sid' do
@@ -128,7 +138,7 @@ class UrbanFiesta < Sinatra::Base
     @verification ||= client.verify
       .services(service.sid)
       .verifications
-      .create(to: resource.phone, channel: 'sms')
+      .create(to: "#{resource.country_code}#{resource.phone}", channel: 'sms')
   end
 
   def verification_check

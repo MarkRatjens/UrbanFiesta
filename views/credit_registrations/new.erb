@@ -6,14 +6,54 @@
   </div>
 
   <div class="row justify-content-center" style="margin-top: 5rem;">
-    <div class="col-sm-3">
+    <div class="col-sm-5">
       <form method="POST" action="/credit_registrations/<%= params[:situation] %>">
         <div class="form-group">
-          <input type="email" name="email" class="form-control form-control-sm" aria-describedby="emailHelp" placeholder="Email">
+          <input type="email" name="email" value="<%= @r.email %>" class="form-control form-control-sm" placeholder="Email">
         </div>
 
         <div class="form-group">
-          <input type="phone" name="phone" class="form-control form-control-sm" placeholder="Cell Phone Number">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <select name="country_code" class="custom-select form-control-sm">
+                <% {
+                    "+61": "Australia +61",
+                    "+1": "Canada +1",
+                    "+86": "China +86",
+                    "+358": "Finland +358",
+                    "+49": "Germany +49",
+                    "+91": "India +91",
+                    "+972": "Israel +972",
+                    "+81": "Japan +81",
+                    "+60": "Malaysia +60",
+                    "+64": "New Zealand +64",
+                    "+63": "Philippines +63",
+                    "+65": "Singapore +65",
+                    "+82": "South Korea +82",
+                    "+971": "UAE +971",
+                    "+44": "United Kingdom +44"
+                  }.each do |k, v|
+                %>
+                  <option
+                    value="<%= k %>"
+                    <% if k.to_s == @r.country_code %>
+                      selected
+                    <% end %>
+                  >
+                    <%= v %>
+                  </option>
+                <% end %>
+              </select>
+            </div>
+            <input type="phone" name="phone" value="<%= @r.phone %>"
+              class="form-control form-control-sm
+                <%= "is-invalid" if @phone_invalid %>"
+              placeholder="Cell Phone Number"
+            >
+            <% if @phone_invalid %>
+              <div class="invalid-feedback"><%= I18n.t('join_form.phone_invalid') %></div>
+            <% end %>
+          </div>
         </div>
 
         <input type="hidden" name="referrer_code" value="<%= params[:code] %>">
