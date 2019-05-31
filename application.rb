@@ -76,15 +76,15 @@ class UrbanFiesta < Sinatra::Base
     erb :"/credit_registrations/show"
   end
 
-  get '/credit_registration/:id' do
-    resource(params[:id])
-    erb :"/credit_registrations/show"
-  end
+#  get '/credit_registration/:id' do
+#    resource(params[:id])
+#    erb :"/credit_registrations/show"
+#  end
 
-  get '/credit_registration/:id/invalid' do
-    resource(params[:id])
-    erb :"/credit_registrations/show_invalid"
-  end
+#  get '/credit_registration/:id/invalid' do
+#    resource(params[:id])
+#    erb :"/credit_registrations/show_invalid"
+#  end
 
   post '/credit_registration/:id/email' do
     'email credit registration results'
