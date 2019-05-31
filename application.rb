@@ -21,6 +21,11 @@ class UrbanFiesta < Sinatra::Base
 
   set :root, File.dirname(__FILE__)
 
+  get '/' do
+    situations
+    erb :"/credit_registrations/situation"
+  end
+
   get '/credit_registrations/situation' do
     situations
     erb :"/credit_registrations/situation"
