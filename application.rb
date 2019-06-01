@@ -121,7 +121,7 @@ class UrbanFiesta < Sinatra::Base
   end
 
   def email
-    Pony.mail(email_options)
+    Pony.mail(email_options.merge(smtp_options))
   end
 
   def email_options
@@ -132,6 +132,21 @@ class UrbanFiesta < Sinatra::Base
         subject: 'Thanks for joining the Opal waitlist',
         html_body: (erb :"credit_registrations/show_success")
       }
+  end
+
+  def smtp_options
+    @smtp_options ||= {
+      via: :smtp,
+      via_options:{
+        address: ENV['SMTP_ADDRESS'],
+        port: '587',
+        enable_starttls_auto: true,
+        user_name: ENV['SMTP_USER_NAME'] || 'roreply@nyasa.io',
+        password: ENV['SMTP_PASSWORD'],
+        authentication: :plain, # :plain, :login, :cram_md5, no auth by default
+        domain: ENV['EMAIL_DOMAIN'] || 'nyasa.io'
+      }
+    }
   end
 
   def verification
