@@ -7,6 +7,10 @@ class CreditRegistration < ActiveRecord::Base
     count + primer
   end
 
+  def phoneWithCountryCode
+    country_code + phone
+  end
+
   def waitlist_position
     id + self.class.primer
   end

@@ -145,7 +145,7 @@ class UrbanFiesta < Sinatra::Base
     @verification_check ||= client.verify
       .services(@service_sid)
       .verification_checks
-      .create(to: resource.phone, code: @code)
+      .create(to: resource.phoneWithCountryCode, code: @code)
   end
 
   def service
