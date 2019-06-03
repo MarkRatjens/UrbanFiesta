@@ -3,6 +3,7 @@ en:
     situation: Select the option that best describes your situation.
     join_form: To Join The Waitlist Please Verify Your Email And Phone Number
     accept_code: Enter the Code Sent To Your Phone
+    confirm_email_address: You Have Email
     success: Success - You've Been Added To The Waitlist
     invalid: Verification Failed
   subtitle:
@@ -19,6 +20,10 @@ en:
     phone_invalid: There's something wrong here! Try again.
   accept_code_form:
     button: Submit
+  confirm_email_address_page:
+    instruction: Check your inbox!
+  confirm_email_address_page_form:
+    button: Confirm
   success_page:
     get_app:
       first: Get Opal faster by referring your friends to sign up using your access code.

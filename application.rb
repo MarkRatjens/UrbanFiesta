@@ -76,13 +76,13 @@ class UrbanFiesta < Sinatra::Base
     resource(params[:id])
     resource.phone_is_checked = verification_check.valid
     resource.save
-    email
-    erb :"/credit_registrations/show"
+    email_confirmation
+    erb :"/credit_registrations/confirm_email_address"
   end
 
   get '/credit_registration/:id/email' do
     resource(params[:id])
-    email
+    email_success
     erb :"/credit_registrations/show"
   end
 
@@ -120,17 +120,31 @@ class UrbanFiesta < Sinatra::Base
     @r ||= id ? CreditRegistration.find(id) : CreditRegistration.new
   end
 
-  def email
-    Pony.mail(email_options.merge(smtp_options))
+  def email_confirmation
+    Pony.mail(confirmation_email_options.merge(smtp_options))
   end
 
-  def email_options
-    @email_options ||=
+  def confirmation_email_options
+    @confirmation_email_options ||=
+      {
+        to: resource.email,
+        from: ENV['FROM_ADDRESS'] || 'noreply@nyasa.io',
+        subject: 'One more step to join the Opal waitlist',
+        html_body: (erb :"credit_registrations/email_confirmation")
+      }
+  end
+
+  def email_success
+    Pony.mail(success_email_options.merge(smtp_options))
+  end
+
+  def success_email_options
+    @success_email_options ||=
       {
         to: resource.email,
         from: ENV['FROM_ADDRESS'] || 'noreply@nyasa.io',
         subject: 'Thanks for joining the Opal waitlist',
-        html_body: (erb :"credit_registrations/show_success")
+        html_body: (erb :"credit_registrations/email_success")
       }
   end
 

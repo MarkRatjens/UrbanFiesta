@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="row justify-content-center" style="margin-top: 5rem;">
+    <div class="col-md-10">
+      <h2 class="text-center"><%= I18n.t('page_title.success') %></h2>
+      <h3 class="text-center">
+        <%= @r.waitlist_position %> / <%= CreditRegistration.primer_count %>
+      </h3>
+    </div>
+  </div>
+
+  <div class="row justify-content-center" style="margin-top: 2rem;">
+    <div class="col-sm-3 my-auto">
+      <div class="row">
+        <div class="col-md-10 col-sm-8 align-self-center text-center">
+          Phone number verified
+        </div>
+        <div class="col-md-2 col-sm-4 align-self-center text-center">
+          <i class="far fa-check-circle fa-3x text-success"></i>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-10 col-sm-8 align-self-center text-center">
+          Email verified
+        </div>
+        <div class="col-md-2 col-sm-4 align-self-center text-center">
+          <i class="far fa-check-circle fa-3x text-success"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-2 offset-sm-1 align-self-center text-center">
+      <img class="img-fluid" src="/card_activation_screen.png">
+    </div>
+  </div>
+
+  <div class="row justify-content-center" style="margin-top: 2rem;">
+    <div class="col-md-8">
+      <p class="text-center"><%= I18n.t('success_page.get_app.first') %></p>
+    </div>
+    <div class="col-md-8">
+      <p class="text-center"><%= I18n.t('success_page.get_app.next') %></p>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-1 align-self-center text-success">
+      <%= @r.referrer_code %>
+    </div>
+    <div class="col-md-1">
+      <a href="/credit_registration/<%= @r.id %>/copy_code" class="btn btn-outline-secondary" role="button" aria-pressed="true">
+        <%= I18n.t('success_page.button') %>
+        <i class="far fa-copy"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="row justify-content-center" style="margin-top: 3rem;">
+    <div class="text-center">
+      <a href="#"><i class="fab fa-facebook-square fa-3x text-secondary"></i></a>
+      <a href="#"><i class="fab fa-twitter fa-3x text-secondary"></i></a>
+      <a href="#"><i class="fab fa-linkedin fa-3x text-secondary"></i></a>
+    </div>
+  </div>
+</div>
