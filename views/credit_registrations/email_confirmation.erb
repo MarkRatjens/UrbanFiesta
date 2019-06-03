@@ -1,15 +1,15 @@
 <div class="container">
   <div class="row justify-content-center" style="margin-top: 5rem;">
     <div class="col-md-10">
-      <h2 class="text-center"><%= I18n.t('page_title.confirm_email_address_page') %></h2>
+      <h2 class="text-center"><%= I18n.t('page_title.email_address_confirmation') %></h2>
     </div>
   </div>
 
   <div class="row justify-content-center" style="margin-top: 2rem;">
     <div class="col-sm-3">
       <div class="row justify-content-center">
-        <a href="/credit_registration/<%= @r.id %>/email_check/<%= @r.email %>">
-          <button href="/credit_registration/<%= @r.id %>/email_check/<%= @r.email %>" type="submit" class="btn btn-sm btn-primary"><%= I18n.t('confirm_email_address_email.Confirm') %></button>
+        <a href="https://<%= request.host %>/credit_registration/@r.id/email_check/@r.email">
+          <button type="submit" class="btn btn-sm btn-primary"><%= I18n.t('confirm_email_address_email.button') %></button>
         </a>
       </div>
     </div>
