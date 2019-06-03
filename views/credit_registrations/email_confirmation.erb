@@ -7,7 +7,7 @@
 
   <div class="row justify-content-center" style="margin-top: 2rem;">
     <div class="col-sm-3">
-      <form method="POST" action="/credit_registration/<%= @r.id %>/email_check/<%= @r.email_address %>">
+      <form method="POST" action="/credit_registration/<%= @r.id %>/email_check/<%= @r.email %>">
         <div class="row justify-content-center">
           <button type="submit" class="btn btn-sm btn-primary"><%= I18n.t('confirm_email_address_page.instruction') %></button>
         </div>
