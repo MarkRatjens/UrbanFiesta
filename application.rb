@@ -80,8 +80,10 @@ class UrbanFiesta < Sinatra::Base
     erb :"/credit_registrations/confirm_email_address"
   end
 
-  get '/credit_registration/:id/email' do
+  post '/credit_registration/:id/email_check/:email' do
     resource(params[:id])
+    resource.email_is_checked = (resource.email == params[:email])
+    resource.save
     email_success
     erb :"/credit_registrations/show"
   end
@@ -95,10 +97,6 @@ class UrbanFiesta < Sinatra::Base
 #    resource(params[:id])
 #    erb :"/credit_registrations/show_invalid"
 #  end
-
-  post '/credit_registration/:id/email' do
-    'email credit registration results'
-  end
 
   get '/credit_registration/:id/copy_code' do
     resource(params[:id])
