@@ -11,19 +11,27 @@
   <div class="col-md-4 col-sm-10 my-auto">
     <div class="row">
       <div class="col-md-10 align-self-center text-center">
-        Phone number not verified
+        Phone number verified
       </div>
       <div class="col-md-2 align-self-center text-center">
-        <i class="far fa-thumbs-down fa-3x text-warning"></i>
+        <% if @r.phone_is_checked? %>
+          <i class="far fa-check-circle fa-3x text-success"></i>
+        <% else %>
+          <i class="far fa-thumbs-down fa-3x text-warning"></i>
+        <% end %>
       </div>
     </div>
 
     <div class="row" style="margin-top: 1rem;">
       <div class="col-md-10 align-self-center text-center">
-        Email not verified
+        Email verified
       </div>
       <div class="col-md-2 align-self-center text-center">
-        <i class="far fa-thumbs-down fa-3x text-warning"></i>
+        <% if @r.email_is_checked? %>
+          <i class="far fa-check-circle fa-3x text-success"></i>
+        <% else %>
+          <i class="far fa-thumbs-down fa-3x text-warning"></i>
+        <% end %>
       </div>
     </div>
   </div>

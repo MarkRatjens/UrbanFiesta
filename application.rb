@@ -74,7 +74,7 @@ class UrbanFiesta < Sinatra::Base
     @code = params[:code]
     @service_sid = params[:service_sid]
     resource(params[:id])
-    resource.is_checked = verification_check.valid
+    resource.phone_is_checked = verification_check.valid
     resource.save
     email
     erb :"/credit_registrations/show"

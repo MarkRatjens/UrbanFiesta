@@ -1,5 +1,5 @@
-<% if @r.is_checked? %>
+<% if @r.phone_is_checked? and @r.email_is_checked? %>
   <%= erb :"credit_registrations/show_success" %>
 <% else %>
-<%= erb :"credit_registrations/show_invalid" %>
+  <%= erb :"credit_registrations/show_invalid" %>
 <% end %>

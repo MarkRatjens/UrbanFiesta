@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_31_063420) do
+ActiveRecord::Schema.define(version: 2019_06_03_002436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,12 +19,13 @@ ActiveRecord::Schema.define(version: 2019_05_31_063420) do
     t.string "situation"
     t.string "email"
     t.string "phone"
-    t.boolean "is_checked"
+    t.boolean "phone_is_checked"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "referrer_code"
     t.string "referee_code"
     t.string "country_code"
+    t.boolean "email_is_checked"
   end
 
 end
