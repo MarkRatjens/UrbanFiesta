@@ -22,7 +22,7 @@ en:
     button: Submit
   confirm_email_address_page:
     instruction: Check your inbox!
-  confirm_email_address_page_form:
+  confirm_email_address_email:
     button: Confirm
   success_page:
     get_app:
