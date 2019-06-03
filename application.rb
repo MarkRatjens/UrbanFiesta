@@ -80,7 +80,7 @@ class UrbanFiesta < Sinatra::Base
     erb :"/credit_registrations/confirm_email_address"
   end
 
-  post '/credit_registration/:id/email_check/:email' do
+  get '/credit_registration/:id/email_check/:email' do
     resource(params[:id])
     resource.email_is_checked = (resource.email == params[:email])
     resource.save
