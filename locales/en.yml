@@ -3,6 +3,7 @@ en:
     situation: Select the option that best describes your situation.
     join_form: To Join The Waitlist Please Verify Your Email And Phone Number
     accept_code: Enter the Code Sent To Your Phone
+    accept_code_invalid: There is a problem with the phone verification code
     confirm_email_address: You Have Email
     email_address_confirmation: Good News! We have verified you are a human.
     success: Success - You've Been Added To The Waitlist
