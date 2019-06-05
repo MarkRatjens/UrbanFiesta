@@ -105,7 +105,7 @@ class UrbanFiesta < Sinatra::Base
   get '/credit_registration/:id/copy_code' do
     resource(params[:id])
     Clipboard.copy("#{request.env["HTTP_HOST"]}/credit_registrations/situation/#{resource.referrer_code}")
-    redirect "/credit_registration/#{resource.id}"
+    redirect "https://<%= request.host %>/credit_registration/#{resource.id}"
   end
 
   def situations
