@@ -132,7 +132,7 @@ class UrbanFiesta < Sinatra::Base
         to: resource.email,
         from: ENV['FROM_ADDRESS'] || 'noreply@nyasa.io',
         subject: 'One more step to join the Opal waitlist',
-        html_body: (erb :"credit_registrations/email_confirmation", layout: 'email_layout')
+        html_body: (erb :"credit_registrations/email_confirmation", layout: :email_layout)
       }
   end
 
@@ -146,7 +146,7 @@ class UrbanFiesta < Sinatra::Base
         to: resource.email,
         from: ENV['FROM_ADDRESS'] || 'noreply@nyasa.io',
         subject: 'Thanks for joining the Opal waitlist',
-        html_body: (erb :"credit_registrations/email_success", layout: 'email_layout')
+        html_body: (erb :"credit_registrations/email_success", layout: :email_layout)
       }
   end
 
