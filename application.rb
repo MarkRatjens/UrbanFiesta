@@ -138,9 +138,6 @@ class UrbanFiesta < Sinatra::Base
   end
 
   def email_success
-    print '-' * 123
-    print 'email_success'
-    print '=' * 123
     Pony.mail(success_email_options.merge(smtp_options))
   end
 
