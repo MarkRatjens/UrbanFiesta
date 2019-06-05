@@ -30,7 +30,7 @@
     </div>
 
     <div class="col-sm-2 offset-sm-1 align-self-center text-center">
-      <img class="img-fluid" src="/card_activation_screen.png">
+      <img class="img-fluid" src="https://<%= request.host %>/card_activation_screen.png">
     </div>
   </div>
 
@@ -44,15 +44,15 @@
   </div>
 
   <div class="row justify-content-center">
-    <div class="col-md-1 align-self-center text-success">
-      <%= @r.referrer_code %>
+    <div class="col-md-8 align-self-center text-success">
+      Your referral code is <%= @r.referrer_code %>
     </div>
-    <div class="col-md-1">
-      <a href="https://<%= request.host %>/credit_registration/<%= @r.id %>/copy_code" class="btn btn-outline-secondary" role="button" aria-pressed="true">
-        <%= I18n.t('success_page.button') %>
-        <i class="far fa-copy"></i>
-      </a>
-    </div>
+  </div>
+
+    <div class="row justify-content-center">
+      <div class="col-md-1 align-self-center text-success">
+        Or your friends can use this link: "<%= request.host %>/credit_registration/<%= @r.id %>/copy_code"
+      </div>
   </div>
 
   <div class="row justify-content-center" style="margin-top: 3rem;">
