@@ -30,7 +30,7 @@
     </div>
 
     <div class="col-sm-2 offset-sm-1 align-self-center text-center">
-      <img class="img-fluid" src="https://<%= request.host %>/card_activation_screen.png">
+      <img class="img-fluid" src="<%= request.host %>/card_activation_screen.png">
     </div>
   </div>
 
@@ -51,7 +51,8 @@
 
     <div class="row justify-content-center">
       <div class="col-md-1 align-self-center text-success">
-        Or your friends can use this link: "<%= request.host %>/credit_registration/<%= @r.id %>/copy_code"
+        Or your friends can use this link:
+        #{request.host}/credit_registrations/situation/#{resource.referrer_code}
       </div>
   </div>
 
