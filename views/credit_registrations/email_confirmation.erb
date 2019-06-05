@@ -6,6 +6,12 @@
   </div>
 
   <div class="row justify-content-center" style="margin-top: 2rem;">
+    <div class="col-md-8">
+      <h3 class="text-center"><%= I18n.t('confirm_email_address_email.first') %></h3>
+    </div>
+  </div>
+
+  <div class="row justify-content-center" style="margin-top: 2rem;">
     <div class="col-sm-3">
       <div class="row justify-content-center">
         <a href="https://<%= request.host %>/credit_registration/<%= @r.id %>/email_check/<%= @r.email %>">
