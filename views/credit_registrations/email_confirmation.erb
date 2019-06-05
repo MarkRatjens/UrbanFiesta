@@ -14,7 +14,7 @@
   <div class="row justify-content-center" style="margin-top: 2rem;">
     <div class="col-sm-3">
       <div class="row justify-content-center">
-        <a href="https://<%= request.host %>/credit_registration/<%= @r.id %>/email_check/<%= @r.email %>">
+        <a href="<%= request.host %>/credit_registration/<%= @r.id %>/email_check/<%= @r.email %>">
           <button type="submit" class="btn btn-sm btn-primary"><%= I18n.t('confirm_email_address_email.button') %></button>
         </a>
       </div>
