@@ -43,6 +43,7 @@ class UrbanFiesta < Sinatra::Base
 
   get '/credit_registrations/new/:situation/:code' do
     resource
+    resource.referee_code = params[:code]
     erb :"/credit_registrations/new"
   end
 
@@ -51,11 +52,11 @@ class UrbanFiesta < Sinatra::Base
     resource.email = params[:email]
     resource.phone = params[:phone].gsub('-', '').gsub(' ', '')
     resource.country_code = params[:country_code]
+    resource.referee_code = params[:referee_code]
 
     begin
       v = verification
       resource.referrer_code = resource.referral_code
-      resource.referee_code = params[:referrer_code]
       resource.save
       redirect "/credit_registration/#{resource.id}/verification/#{v.service_sid}"
     rescue Twilio::REST::RestError => e
