@@ -92,21 +92,21 @@ class UrbanFiesta < Sinatra::Base
     erb :"/credit_registrations/show"
   end
 
-#  get '/credit_registration/:id' do
-#    resource(params[:id])
-#    erb :"/credit_registrations/show"
-#  end
-
-#  get '/credit_registration/:id/invalid' do
-#    resource(params[:id])
-#    erb :"/credit_registrations/show_invalid"
-#  end
-
   get '/credit_registration/:id/copy_code' do
     resource(params[:id])
-    Clipboard.copy("#{request.env["HTTP_HOST"]}/credit_registrations/situation/#{resource.referrer_code}")
-    redirect "https://<%= request.host %>/credit_registration/#{resource.id}"
+    Clipboard.copy("#{request.host}/credit_registrations/situation/#{resource.referrer_code}")
+    redirect "https://<%= request.host %/credit_registration/#{resource.id}/email/#{resource.email}"
   end
+
+  get '/credit_registration/:id/email/:email' do
+    resource(params[:id])
+    erb :"/credit_registrations/show" if resource.email == params[:email]
+  end
+
+  #  get '/credit_registration/:id/invalid' do
+  #    resource(params[:id])
+  #    erb :"/credit_registrations/show_invalid"
+  #  end
 
   def situations
     @situations ||= [
