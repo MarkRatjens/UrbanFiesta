@@ -77,7 +77,7 @@ class UrbanFiesta < Sinatra::Base
     resource.phone_is_checked = verification_check.valid
     resource.save
     if resource.phone_is_checked
-      email_confirmation
+      email_confirmation unless settings.development?
       erb :"/credit_registrations/confirm_email_address"
     else
       abort "do something else"
@@ -88,7 +88,7 @@ class UrbanFiesta < Sinatra::Base
     resource(params[:id])
     resource.email_is_checked = (resource.email == params[:email])
     resource.save
-    email_success
+    email_success unless settings.development?
     erb :"/credit_registrations/show"
   end
 
