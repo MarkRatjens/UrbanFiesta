@@ -2,11 +2,13 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 require 'sinatra/activerecord'
 require 'twilio-ruby'
-require 'pony'
+require 'sendgrid-ruby'
 require 'i18n'
 require 'i18n/backend/fallbacks'
 require 'clipboard'
 require './credit_registration/models/credit_registration'
+
+include SendGrid
 
 class UrbanFiesta < Sinatra::Base
   configure :development do
@@ -77,9 +79,7 @@ class UrbanFiesta < Sinatra::Base
     resource(params[:id])
     resource.phone_is_checked = verification_check.valid
     resource.save
-    if resource.phone_is_checked
-      email_confirmation unless settings.development?
-    end
+    send_email_confirmation if resource.phone_is_checked
     erb :"/credit_registrations/confirm_email_address"
   end
 
@@ -87,9 +87,7 @@ class UrbanFiesta < Sinatra::Base
     resource(params[:id])
     resource.email_is_checked = (resource.email == params[:email])
     resource.save
-    if resource.phone_is_checked
-      email_success unless settings.development?
-    end
+    email_success ifresource.phone_is_checked
     erb :"/credit_registrations/show"
   end
 
@@ -123,70 +121,80 @@ class UrbanFiesta < Sinatra::Base
     @r ||= id ? CreditRegistration.find(id) : CreditRegistration.new
   end
 
-  def email_confirmation
-    Pony.mail(confirmation_email_options.merge(smtp_options))
+
+  def send_email_confirmation
+    email_client.client.mail._('send').post(request_body: confirmation_email.to_json)
   end
 
-  def confirmation_email_options
-    @confirmation_email_options ||=
-      {
-        to: resource.email,
-        from: ENV['FROM_ADDRESS'] || 'noreply@nyasa.io',
-        subject: 'One more step to join the Opal waitlist',
-        html_body: (erb :"credit_registrations/email_confirmation", layout: :email_layout)
-      }
+  def send_success_email
+    email_client.client.mail._('send').post(request_body: success_email.to_json)
   end
 
-  def email_success
-    Pony.mail(success_email_options.merge(smtp_options))
+  def confirmation_email
+    SendGrid::Mail.new(
+      from_address,
+      I18n.t('confirm_email_address_email.subject'),
+      to_address,
+      confirmation_content
+    )
   end
 
-  def success_email_options
-    @success_email_options ||=
-      {
-        to: resource.email,
-        from: ENV['FROM_ADDRESS'] || 'noreply@nyasa.io',
-        subject: 'Thanks for joining the Opal waitlist',
-        html_body: (erb :"credit_registrations/email_success", layout: :email_layout)
-      }
+  def confirmation_content
+    SendGrid::Content.new(
+      type: 'text/plain',
+      value: (erb :"credit_registrations/email_confirmation", layout: :email_layout)
+    )
   end
 
-  def smtp_options
-    @smtp_options ||= {
-      via: :smtp,
-      via_options:{
-        address: ENV['SMTP_ADDRESS'],
-        port: '587',
-        enable_starttls_auto: true,
-        user_name: ENV['SMTP_USER_NAME'] || 'roreply@nyasa.io',
-        password: ENV['SMTP_PASSWORD'],
-        authentication: :plain, # :plain, :login, :cram_md5, no auth by default
-        domain: ENV['EMAIL_DOMAIN'] || 'nyasa.io'
-      }
-    }
+  def success_email
+    SendGrid::Mail.new(
+      from_address,
+      I18n.t('success_email.subject'),
+      to_address,
+      success_content
+    )
+  end
+
+  def success_content
+    SendGrid::Content.new(
+      type: 'text/plain',
+      value: (erb :"credit_registrations/email_success", layout: :email_layout)
+    )
+  end
+
+  def from_address
+    SendGrid::Email.new(email: ENV['FROM_ADDRESS'] || 'noreply@nyasa.io')
+  end
+
+  def to_address
+    SendGrid::Email.new(email: resource.email)
   end
 
   def verification
-    @verification ||= client.verify
+    @verification ||= twilio_client.verify
       .services(service.sid)
       .verifications
       .create(to: "#{resource.country_code}#{resource.phone}", channel: 'sms')
   end
 
   def verification_check
-    @verification_check ||= client.verify
+    @verification_check ||= twilio_client.verify
       .services(@service_sid)
       .verification_checks
       .create(to: resource.phoneWithCountryCode, code: @code)
   end
 
   def service
-    @service ||= client.verify
+    @service ||= twilio_client.verify
       .services
       .create(friendly_name: 'Nyasa')
   end
 
-  def client
-    @client ||= Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
+  def twilio_client
+    @twilio_client ||= Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
+  end
+
+  def email_client
+    @email_client ||= SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
   end
 end

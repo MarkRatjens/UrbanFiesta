@@ -5,6 +5,6 @@ gem "rake"
 gem "sinatra-activerecord"
 gem "pg"
 gem "twilio-ruby"
+gem 'sendgrid-ruby'
 gem "i18n"
 gem "clipboard"
-gem "pony"

@@ -25,8 +25,11 @@ en:
   confirm_email_address_page:
     instruction: Check your inbox!
   confirm_email_address_email:
+    subject: One more step to join the Opal waitlist
     first: Now we just need to make sure your email address is valid.
     button: Confirm
+  success_email:
+    subject: One more step to join the Opal waitlist
   success_page:
     get_app:
       first: Get Opal faster by referring your friends to sign up using your access code.
