@@ -3,6 +3,7 @@ require 'sinatra/reloader'
 require 'sinatra/activerecord'
 require 'twilio-ruby'
 require 'sendgrid-ruby'
+require 'json'
 require 'i18n'
 require 'i18n/backend/fallbacks'
 require 'clipboard'
@@ -121,45 +122,81 @@ class UrbanFiesta < Sinatra::Base
     @r ||= id ? CreditRegistration.find(id) : CreditRegistration.new
   end
 
+  #
+  # take this out!
+  # ||||||||||||||
+  # ||||||||||||||
+  # vvvvvvvvvvvvvv
+  get '/credit_registration/:id' do
+    resource(params[:id])
+    send_email_confirmation
+    send_success_email
+  end
 
   def send_email_confirmation
-    email_client.client.mail._('send').post(request_body: confirmation_email.to_json)
+    r = email_client.client.mail._('send').post(request_body: confirmation_email.to_json)
+    puts '-' * 111
+    puts r.status_code
+    puts r.body
+    puts r.headers
+    puts '=' * 111
   end
 
   def send_success_email
-    email_client.client.mail._('send').post(request_body: success_email.to_json)
+    r = email_client.client.mail._('send').post(request_body: success_email.to_json)
+    puts '-' * 111
+    puts r.status_code
+    puts r.body
+    puts r.headers
+    puts '=' * 111
   end
 
   def confirmation_email
-    SendGrid::Mail.new(
-      from_address,
-      I18n.t('confirm_email_address_email.subject'),
-      to_address,
-      confirmation_content
-    )
+    m ||= SendGrid::Mail.new
+    m.template_id = ENV['CONFIRMATION_TEMPLATE_ID']
+    m.from = from_address
+    m.subject = I18n.t('confirm_email_address_email.subject')
+    m.add_personalization(confirmation_personalization)
+    m
   end
 
-  def confirmation_content
-    SendGrid::Content.new(
-      type: 'text/plain',
-      value: (erb :"credit_registrations/email_confirmation", layout: :email_layout)
-    )
+  def confirmation_personalization
+    p ||= Personalization.new
+    p.add_to(to_address)
+    p.add_dynamic_template_data({
+      variable: [
+        { page_title: I18n.t('page_title.email_address_confirmation') },
+        { first: I18n.t('confirm_email_address_email.first') },
+        { url: "#{request.host}/credit_registration/#{resource.id}/email_check/#{resource.email}" },
+        { button_text: I18n.t('confirm_email_address_email.button') }
+      ]
+    })
+    p
   end
 
   def success_email
-    SendGrid::Mail.new(
-      from_address,
-      I18n.t('success_email.subject'),
-      to_address,
-      success_content
-    )
+    m ||= SendGrid::Mail.new
+    m.template_id = ENV['SUCCESS_TEMPLATE_ID']
+    m.from = from_address
+    m.subject = I18n.t('success_email.subject')
+    m.add_personalization(success_personalization)
+    m
   end
 
-  def success_content
-    SendGrid::Content.new(
-      type: 'text/plain',
-      value: (erb :"credit_registrations/email_success", layout: :email_layout)
-    )
+  def success_personalization
+    p ||= Personalization.new
+    p.add_to(to_address)
+    p.add_dynamic_template_data({
+      variable: [
+        { page_title: I18n.t('page_title.success') },
+        { waitlist_position: resource.waitlist_position },
+        { waitlist_size: CreditRegistration.primer_count },
+        { first: I18n.t('success_page.get_app.first.first') },
+        { next: I18n.t('success_page.get_app.first.next') },
+        { url: "#{request.host}/credit_registrations/situation/#{resource.referrer_code}" }
+      ]
+    })
+    p
   end
 
   def from_address
@@ -196,5 +233,6 @@ class UrbanFiesta < Sinatra::Base
 
   def email_client
     @email_client ||= SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+                    # SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'], host: 'https://api.sendgrid.com')
   end
 end
