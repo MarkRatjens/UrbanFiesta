@@ -135,20 +135,10 @@ class UrbanFiesta < Sinatra::Base
 
   def send_email_confirmation
     r = email_client.client.mail._('send').post(request_body: confirmation_email.to_json)
-    puts '-' * 111
-    puts r.status_code
-    puts r.body
-    puts r.headers
-    puts '=' * 111
   end
 
   def send_success_email
     r = email_client.client.mail._('send').post(request_body: success_email.to_json)
-    puts '-' * 111
-    puts r.status_code
-    puts r.body
-    puts r.headers
-    puts '=' * 111
   end
 
   def confirmation_email
