@@ -134,6 +134,7 @@ class UrbanFiesta < Sinatra::Base
   end
 
   def send_email_confirmation
+    puts confirmation_email.to_json
     r = email_client.client.mail._('send').post(request_body: confirmation_email.to_json)
   end
 
@@ -154,12 +155,10 @@ class UrbanFiesta < Sinatra::Base
     p ||= Personalization.new
     p.add_to(to_address)
     p.add_dynamic_template_data({
-      variable: [
-        { page_title: I18n.t('page_title.email_address_confirmation') },
-        { first: I18n.t('confirm_email_address_email.first') },
-        { url: "#{request.host}/credit_registration/#{resource.id}/email_check/#{resource.email}" },
-        { button_text: I18n.t('confirm_email_address_email.button') }
-      ]
+      page_title: I18n.t('page_title.email_address_confirmation'),
+      first: I18n.t('confirm_email_address_email.first'),
+      url: "#{request.host}/credit_registration/#{resource.id}/email_check/#{resource.email}",
+      button_text: I18n.t('confirm_email_address_email.button')
     })
     p
   end
@@ -177,14 +176,12 @@ class UrbanFiesta < Sinatra::Base
     p ||= Personalization.new
     p.add_to(to_address)
     p.add_dynamic_template_data({
-      variable: [
-        { page_title: I18n.t('page_title.success') },
-        { waitlist_position: resource.waitlist_position },
-        { waitlist_size: CreditRegistration.primer_count },
-        { first: I18n.t('success_page.get_app.first.first') },
-        { next: I18n.t('success_page.get_app.first.next') },
-        { url: "#{request.host}/credit_registrations/situation/#{resource.referrer_code}" }
-      ]
+      page_title: I18n.t('page_title.success'),
+      waitlist_position: resource.waitlist_position,
+      waitlist_size: CreditRegistration.primer_count,
+      first: I18n.t('success_page.get_app.first.first'),
+      next: I18n.t('success_page.get_app.first.next'),
+      url: "#{request.host}/credit_registrations/situation/#{resource.referrer_code}"
     })
     p
   end
