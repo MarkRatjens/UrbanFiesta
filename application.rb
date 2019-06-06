@@ -88,7 +88,7 @@ class UrbanFiesta < Sinatra::Base
     resource(params[:id])
     resource.email_is_checked = (resource.email == params[:email])
     resource.save
-    email_success ifresource.phone_is_checked
+    email_success if resource.phone_is_checked
     erb :"/credit_registrations/show"
   end
 
