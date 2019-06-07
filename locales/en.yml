@@ -33,8 +33,8 @@ en:
     subject: One more step to join the Opal waitlist
   success_page:
     get_app:
-      first: Get Opal faster by referring your friends to sign up using your referral code or link.
-      next: The friends you refer get ahead in line.
+      first: Share your unique referral link with friends.
+      next: Move up the waitlist.
     button: Copy
   invalid_page:
     button: Try Again
