@@ -1,4 +1,7 @@
 class CreditRegistration < ActiveRecord::Base
+  validates :phone, presence: true
+  validates :email, presence: true
+
   def self.primer
     51723
   end

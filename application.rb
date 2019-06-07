@@ -58,10 +58,13 @@ class UrbanFiesta < Sinatra::Base
     resource.referee_code = params[:referee_code]
 
     begin
-      v = verification
       resource.referrer_code = resource.referral_code
-      resource.save
-      redirect "/credit_registration/#{resource.id}/verification/#{v.service_sid}"
+      resource.save!
+      redirect "/credit_registration/#{resource.id}/verification/#{verification.service_sid}"
+    rescue ActiveRecord::RecordInvalid => e
+      @email_absent = resource.errors[:email].any?
+      @phone_absent = resource.errors[:phone].any?
+      erb :"/credit_registrations/new"
     rescue Twilio::REST::RestError => e
       @phone_invalid = true
       erb :"/credit_registrations/new"

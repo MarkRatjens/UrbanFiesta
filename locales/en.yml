@@ -19,6 +19,7 @@ en:
   join_form:
     button: Verify
     condition: By clicking verify you consent to receiving communication via text and SMS. We will not reach out to you through phone calls and your information will not be shared with other parties for marketing purposes. You will be notified via email or SMS once pre-approval begins for early access.
+    absent: This is required! Try again.
     phone_invalid: There's something wrong here! Try again.
   accept_code_form:
     button: Submit

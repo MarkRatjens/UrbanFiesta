@@ -9,7 +9,14 @@
     <div class="col-sm-5">
       <form method="POST" action="/credit_registrations/<%= params[:situation] %>">
         <div class="form-group">
-          <input type="email" name="email" value="<%= @r.email %>" class="form-control form-control-sm" placeholder="Email">
+          <input type="email" name="email" value="<%= @r.email %>"
+            class="form-control form-control-sm
+              <%= "is-invalid" if @email_absent %>"
+            placeholder="Email"
+          >
+          <% if @email_absent %>
+            <div class="invalid-feedback"><%= I18n.t('join_form.absent') %></div>
+          <% end %>
         </div>
 
         <div class="form-group">
@@ -44,9 +51,12 @@
             </div>
             <input type="phone" name="phone" value="<%= @r.phone %>"
               class="form-control form-control-sm
-                <%= "is-invalid" if @phone_invalid %>"
+                <%= "is-invalid" if @phone_absent ||@phone_invalid %>"
               placeholder="Cell Phone Number"
             >
+            <% if @phone_absent %>
+              <div class="invalid-feedback"><%= I18n.t('join_form.absent') %></div>
+            <% end %>
             <% if @phone_invalid %>
               <div class="invalid-feedback"><%= I18n.t('join_form.phone_invalid') %></div>
             <% end %>
