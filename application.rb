@@ -125,17 +125,6 @@ class UrbanFiesta < Sinatra::Base
     @r ||= id ? CreditRegistration.find(id) : CreditRegistration.new
   end
 
-  #
-  # take this out!
-  # ||||||||||||||
-  # ||||||||||||||
-  # vvvvvvvvvvvvvv
-  get '/credit_registration/:id' do
-    resource(params[:id])
-    send_email_confirmation
-    send_success_email
-  end
-
   def send_email_confirmation
     r = email_client.client.mail._('send').post(request_body: JSON.parse(confirmation_email.to_json))
   end
