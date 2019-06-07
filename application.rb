@@ -78,12 +78,15 @@ class UrbanFiesta < Sinatra::Base
   end
 
   post '/credit_registration/:id/verification_check/:service_sid' do
-    @code = params[:code][0 .. 5]
-    @service_sid = params[:service_sid]
     resource(params[:id])
-    resource.phone_is_checked = verification_check.valid
-    resource.save
-    send_email_confirmation if resource.phone_is_checked
+
+    if (@code = params[:code][0 .. 5]).size >= 4
+      @service_sid = params[:service_sid]
+      resource.phone_is_checked = verification_check.valid
+      resource.save
+      send_email_confirmation if resource.phone_is_checked
+    end
+
     erb :"/credit_registrations/confirm_email_address"
   end
 
