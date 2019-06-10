@@ -48,7 +48,7 @@
         <%= @r.referrer_code %>
     </div>
     <div class="col-md-1">
-      <a href="/credit_registration/<%= @r.id %>/copy_code" class="btn btn-outline-secondary" role="button" aria-pressed="true">
+      <a href="/credit_registration/<%= @r.id %>/<%= @r.referrer_code %>" class="btn btn-outline-secondary" role="button" aria-pressed="true">
         <%= I18n.t('success_page.button') %>
         <i class="far fa-copy"></i>
       </a>
@@ -57,9 +57,9 @@
 
   <div class="row justify-content-center" style="margin-top: 3rem;">
     <div class="text-center">
-        <a href="#"><i class="fas fa-envelope fa-3x text-secondary"></i></a>
-        <a href="#"><i class="fab fa-facebook-square fa-3x text-secondary"></i></a>
-        <a href="#"><i class="fab fa-twitter fa-3x text-secondary"></i></a>
+        <a href="mailto:?subject=I just signed up for Opal, you should too&amp;body=The digital credit card based on your potential, not credit score.  Use my referral link to join the waitlist - https://app.nyasa.io/credit_registration/<%= @r.id %>/"><i class="fas fa-envelope fa-3x text-secondary"></i></a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://app.nyasa.io/credit_registration/<%= @r.id %>/"><i class="fab fa-facebook-square fa-3x text-secondary"></i></a>
+        <a href="http://twitter.com/share?text=ttps://app.nyasa.io/credit_registration/<%= @r.id %>/"><i class="fab fa-twitter fa-3x text-secondary"></i></a>
     </div>
   </div>
 </div>
