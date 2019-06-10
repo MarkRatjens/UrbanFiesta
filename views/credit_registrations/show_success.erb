@@ -42,12 +42,11 @@
       <p class="text-center"><%= I18n.t('success_page.get_app.next') %></p>
     </div>
   </div>
-
-  <div class="row justify-content-center" style="margin-top: 3rem;">
+  <div class="row justify-content-center" style="margin-top: 2rem;">
     <div class="text-center">
-        <a href="mailto:?subject=I just signed up for Opal, you should too&amp;body=The digital credit card based on your potential, not credit score.  Use my referral link to join the waitlist - https://app.nyasa.io/credit_registration/<%= @r.id %>/<%= @r.referrer_code %>"><i class="fas fa-envelope fa-3x text-secondary"></i></a>
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https://app.nyasa.io/credit_registration/<%= @r.id %>/<%= @r.referrer_code %>"><i class="fab fa-facebook-square fa-3x text-secondary"></i></a>
-        <a href="http://twitter.com/share?text=Get Opal Digital Credit&url=https://app.nyasa.io/credit_registration/<%= @r.id %>/<%= @r.referrer_code %>"><i class="fab fa-twitter fa-3x text-secondary"></i></a>
+        <a href="mailto:?subject=I just signed up for Opal, you should too&amp;body=The digital credit card based on your potential, not credit score.  Use my referral link to join the waitlist - https://app.nyasa.io/credit_registrations/situation/<%= @r.referrer_code %>"><i class="fas fa-envelope fa-3x text-secondary"></i></a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://app.nyasa.io/credit_registrations/situation/<%= @r.referrer_code %>"><i class="fab fa-facebook-square fa-3x text-secondary"></i></a>
+        <a href="http://twitter.com/share?text=Get Opal Digital Credit&url=https://app.nyasa.io/credit_registrations/situation/<%= @r.referrer_code %>"><i class="fab fa-twitter fa-3x text-secondary"></i></a>
     </div>
   </div>
 </div>
