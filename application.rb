@@ -180,6 +180,34 @@ class UrbanFiesta < Sinatra::Base
     }
   end
 
+  helpers do
+    def json_params
+      begin
+        JSON.parse(request.body.read)
+      rescue
+        halt 400, { message:'Invalid JSON' }.to_json
+      end
+    end
+  end
+
+  post '/credit_me/api/v1/verification' do
+    content_type 'application/json'
+    resource.country_code = json_params("country_code")
+    resource.phone = json_params("phone")
+
+    verification
+  end
+
+  post '/credit_me/api/v1/verification_check' do
+    content_type 'application/json'
+    if (@code = json_params[:code][0 .. 5]).size >= 4
+      resource.country_code = json_params("country_code")
+      resource.phone = json_params("phone")
+      @service_sid = json_params["service_sid"]
+      verification_check
+    end
+  end
+
   def verification
     @verification ||= twilio_client.verify
       .services(service.sid)
