@@ -192,20 +192,21 @@ class UrbanFiesta < Sinatra::Base
 
   post '/credit_me/api/v1/verification' do
     content_type 'application/json'
-    resource.country_code = json_params("country_code")
-    resource.phone = json_params("phone")
-
-    verification
+    p = json_params
+    resource.country_code = p['countryCode']
+    resource.phone = p['phoneNumber']
+    { serviceSID: verification.service_sid }.to_json
   end
 
   post '/credit_me/api/v1/verification_check' do
     content_type 'application/json'
-    if (@code = json_params[:code][0 .. 5]).size >= 4
-      resource.country_code = json_params("country_code")
-      resource.phone = json_params("phone")
-      @service_sid = json_params["service_sid"]
-      verification_check
+    p = json_params
+    if (@code = p['code'][0 .. 5]).size >= 4
+      resource.country_code = p['countryCode']
+      resource.phone = p['phoneNumber']
+      @service_sid = p['serviceSID']
     end
+    { success: verification_check.valid }.to_json
   end
 
   def verification
