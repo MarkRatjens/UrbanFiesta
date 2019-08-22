@@ -212,7 +212,7 @@ class UrbanFiesta < Sinatra::Base
 
   def verification
     @verification ||= twilio_client.verify
-      .services(ENV['TWILIO_NYASA_SERVICE_SID'])
+      .services("VA9ae5c4d630f5684b6c82d97e5ed67046")
       .verifications
       .create(to: "#{resource.country_code}#{resource.phone}", channel: 'sms')
   end
