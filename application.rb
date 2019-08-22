@@ -206,8 +206,10 @@ class UrbanFiesta < Sinatra::Base
       resource.country_code = p['countryCode']
       resource.phone = p['phoneNumber']
       @service_sid = p['serviceSID']
+      { success: verification_check.valid }.to_json
+    else
+      { success: false }.to_json
     end
-    { success: verification_check.valid }.to_json
   end
 
   def verification
