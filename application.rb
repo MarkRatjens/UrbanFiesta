@@ -66,6 +66,7 @@ class UrbanFiesta < Sinatra::Base
       @phone_absent = resource.errors[:phone].any?
       erb :"/credit_registrations/new"
     rescue Twilio::REST::RestError => e
+      puts e
       @phone_invalid = true
       erb :"/credit_registrations/new"
     end
@@ -211,7 +212,7 @@ class UrbanFiesta < Sinatra::Base
 
   def verification
     @verification ||= twilio_client.verify
-      .services(service.sid)
+      .services(ENV['TWILIO_NYASA_SERVICE_SID'])
       .verifications
       .create(to: "#{resource.country_code}#{resource.phone}", channel: 'sms')
   end

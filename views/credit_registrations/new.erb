@@ -51,7 +51,7 @@
             </div>
             <input type="phone" name="phone" value="<%= @r.phone %>"
               class="form-control form-control-sm
-                <%= "is-invalid" if @phone_absent ||@phone_invalid %>"
+                <%= "is-invalid" if @phone_absent || @phone_invalid %>"
               placeholder="Cell Phone Number"
             >
             <% if @phone_absent %>
